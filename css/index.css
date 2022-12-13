@@ -1,3 +1,7 @@
 .img-sample{
     height: 300px;
 }
+
+.hide {
+    display: none;
+}
