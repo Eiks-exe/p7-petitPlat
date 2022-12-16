@@ -19,22 +19,36 @@
             </div>
         </div>
     </header>
-    <main class="container">
-        <div class="row">
-            <input type="text" name="search" id="search" class="form-control" search-input>
+    <main class="main">
+        <div class="w-75">
+            <input type="text" name="search" id="search" class="form-control " search-input>
         </div>
-        <div class="row my-5">
-            <button class="col-1 btn btn-primary me-3 py-3" id="test">Ingredients</button>
-            <button class="col-1 btn btn-success me-3 py-3">Appareils</button>
-            <button class="col-1 btn btn-danger me-3 py-3">Ustensiles</button>
+        <div class="filters">
+            <button class="col-1 btn btn-primary " role="button" aria-haspopup="ingredients-container" aria-expanded="false" id="filter-ingredients">Ingredients</button>
+            <button class="col-1 btn btn-success " [filter-appliances]>Appareils</button>
+            <button class="col-1 btn btn-danger " [filter-ustensils]>Ustensiles</button>
+            <div class="tagContainer bg-primary" id="ingredients-container" style="display: none;">
+
+            </div>
         </div>
-        <div class="result-grid container-fluid row hstack gap-3 " recipes-container>
+        <div class="result-grid " recipes-container>
             <template recipe-template class="">
-                <div class="card " style="width: 25rem;">
-                <img src="./assets/pictures/restaurant-wallpapers-44763-15495-1531137.png" class="card-img-top w-100" alt="..." data-card-img>
-                    <div class="card-body bg-secondary" data-card-body>
-                    <h5 class="card-title" data-card-title></h5>
-                      <p class="card-text" data-card-text>...</p>
+                <div class="card h-75" style="width: 25rem;">
+                    <img src="./assets/pictures/restaurant-wallpapers-44763-15495-1531137.png"
+                        class="card-img-top w-100" alt="..." data-card-img>
+                    <div class="card-body bg-secondary p-0" data-card-body>
+                        <div class="card-title row" data-card-title>
+                            <h4 class="recipe-name col-9"></h4>
+                            <p class="recipe-timestamp col-3"></p>
+                        </div>
+                        <div class="card-text row" data-card-text>
+                            <ul class="recipe-ingredients col-6">
+
+                            </ul>
+                            <div class="recipe-description col-6">
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </template>

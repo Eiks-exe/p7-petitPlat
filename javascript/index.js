@@ -1,44 +1,97 @@
-import {recipes} from "../data/recipe.js"
+import {categorieExtractor, tags} from "../data/categories.js"
+import { recipes } from "../data/recipe.js"
+import filterList from "./component/filters.js"
+
+let results = []
+results = recipes
 
 
 //DOM Elements
+
 const recipeCardTemplate = document.querySelector("[recipe-template]")
 const recipesContainer = document.querySelector("[recipes-container]")
 const searchInput = document.querySelector("[search-input]")
+const ingredientContainer = document.getElementById("ingredients-container")
 
 
-// Getting and displaying data
-const displayRecipes = (data) => {
-    const dataArray = data.map(recipe => {
-        const card = recipeCardTemplate.content.cloneNode('true').children[0]
-        
-        const cardImg = card.querySelector('[data-card-img]')
-        const cardTitle = card.querySelector('[data-card-title]')
-        const cardText = card.querySelector('[data-card-text]')
+// filters
 
-        cardImg.src = "../assets/pictures/restaurant-wallpapers-44763-15495-1531137.png"
-        cardTitle.textContent = recipe.name
-        
-        recipesContainer.appendChild(card)
-        
-        
-        return {name: recipe.name, description: recipe.description, time:recipe.time, ingredients: recipe.ingredients, element: card}
 
-    });
-    // search 
-    searchInput.addEventListener("input", (e)=>{
-        const args = e.target.value
-        dataArray.forEach(recipe => {
-            const isVisible = recipe.name.toLowerCase().includes(args.toLowerCase()) || !recipe.ingredients.every(item => item.ingredient.toLowerCase().indexOf(args.toLowerCase()) === -1) 
-            
-            
 
-            recipe.element.classList.toggle("hide", !isVisible)
-        });
+
+// Getting and filtering data
+const searchFunction = (data, keywords) => {
+    if(!keywords){
+        return data
+    }
+    const filter = data.filter((recipe) => {
+        return (
+            recipe.name.toLowerCase().includes(keywords.toLowerCase()) ||
+            !recipe.ingredients.every(item => item.ingredient.toLowerCase().indexOf(keywords.toLowerCase()) === -1)
+        );
     })
+    
+    return filter 
 }
 
 
+// Card creation
 
-displayRecipes(recipes)
- 
+const displayFunction = (data) => {
+    const card = data.map((recipe)=>{
+
+        const ingredientList = recipe.ingredients.map(item => {
+            if(!item.quantity){
+                return `<li>${item.ingredient}</li>`
+            } else if(!item.unit) {
+                return `<li>${item.ingredient}: ${item.quantity}</li>`
+            }
+            return `<li>${item.ingredient}: ${item.quantity}${item.unit}</li>`
+        });
+
+        return `
+        <div class="recipe-card bg-secondary p-0" style="width: 28rem;">
+        <img src="./assets/pictures/restaurant-wallpapers-44763-15495-1531137.png"
+            class="card-img-top h-50" alt="..." data-card-img>
+        <div class="card-body" data-card-body>
+            <div class="card-title " data-card-title>
+                <h5 class="recipe-name ">${recipe.name}</h5>
+                <p class="recipe-timestamp ">${recipe.time}</p>
+            </div>
+            <div class="card-text row" data-card-text>
+                <ul class="recipe-ingredients col-6">
+                ${ingredientList.join('')}
+                </ul>
+                <div class="recipe-description col-6" style="
+                    font-size:12px
+                ">
+                ${recipe.description}
+                </div>
+            </div>
+        </div>
+    </div>
+        `
+    }).join('')
+
+    recipesContainer.innerHTML = card;
+}
+
+
+searchInput.addEventListener("input", async (e) => {
+    const args = e.target.value
+    if(args.length === 0) {
+        displayFunction(recipes)
+    } else if(args.length >= 3) {
+        results = searchFunction(recipes, args)
+        displayFunction(results)
+    }
+    if(results.length === 0 && args.length >= 3){
+        recipesContainer.innerHTML = 'aucun article ne corresspond a votre recherche'
+    }
+})
+displayFunction(results)
+
+categorieExtractor()
+
+console.log(ingredientContainer)
+filterList(ingredientContainer, tags.ingredients)

@@ -1,7 +1,73 @@
 .img-sample{
-    height: 300px;
+    height: 400px;
 }
 
 .hide {
     display: none;
+}
+
+.result-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 40px; 
+    row-gap: 20px;
+}
+.recipe-card {
+    height: 317px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.recipe-name{
+    font-size: 18px;
+    white-space:nowrap;
+}
+.recipe-description{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+            line-clamp: 6; 
+    -webkit-box-orient: vertical;
+}
+.recipe-ingredients {
+    font-size: 12px;
+    font-weight: 00;
+}
+.card-body{
+    padding: 5px 10px;
+}
+
+.card-title{
+    display: flex;
+    justify-content: space-between;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.filters{
+    align-self: flex-start;
+    margin: 2rem 13.9rem;
+}
+
+.filters > button {
+    width: 8rem;
+    height: 3rem;
+}
+
+.tagContainer {
+    display: grid;
+    padding: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    border-radius: 0 15px 15px 15px;
+    grid-gap: 10px;
+}
+
+.tags{
+    color:white;
+    list-style: none;
 }
