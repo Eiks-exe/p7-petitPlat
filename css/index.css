@@ -62,12 +62,39 @@
 .tagContainer {
     display: grid;
     padding: 10px;
-    grid-template-columns: repeat(4, 1fr);
-    border-radius: 0 15px 15px 15px;
-    grid-gap: 10px;
+    width: 667px;
+    height: 397px;
+    grid-template-columns: repeat(3, 1fr);
+    border-radius: 0 0px 15px 15px;
+    grid-gap: 15px;
+    overflow-y: hidden;
+    position: absolute;
+}
+.filter-opened {
+    min-width: 667px !important;
+    border-radius: 15px 15px 0 0;
 }
 
 .tags{
     color:white;
     list-style: none;
+    cursor: pointer;
+}
+
+.tags:hover{
+    background-color: rgb(112, 36, 36);
+}
+#tags-search{
+    display: none;
+    border:none;
+    width:397px;
+}
+
+.pinsContainer{
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 15px;
+}
+
+.pin {
+    background-color: dodgerblue;
 }

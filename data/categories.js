@@ -6,7 +6,7 @@ export let tags = {
     appliance: [],
     ustensils: [],
 }
-
+// toLowerCase
 export const categorieExtractor = ()=>{
     let allIngredient = []
     let allUstensile = []
@@ -22,7 +22,7 @@ export const categorieExtractor = ()=>{
         allAppliance.push(recipe.appliance.toLowerCase())
     }))
     
-
+    // extraire sans doublon
     tags.ingredients = [...new Set(allIngredient)]
     tags.ustensils = [...new Set(allUstensile)]
     tags.appliance = [...new Set(allAppliance)]

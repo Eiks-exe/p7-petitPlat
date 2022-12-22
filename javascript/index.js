@@ -12,6 +12,8 @@ const recipeCardTemplate = document.querySelector("[recipe-template]")
 const recipesContainer = document.querySelector("[recipes-container]")
 const searchInput = document.querySelector("[search-input]")
 const ingredientContainer = document.getElementById("ingredients-container")
+const applianceContainer = document.getElementById("appliances-container")
+const ustensilsContainer = document.getElementById("ustensils-container")
 
 
 // filters
@@ -20,14 +22,15 @@ const ingredientContainer = document.getElementById("ingredients-container")
 
 
 // Getting and filtering data
-const searchFunction = (data, keywords) => {
+export const searchFunction = (data, keywords) => {
     if(!keywords){
         return data
     }
     const filter = data.filter((recipe) => {
         return (
             recipe.name.toLowerCase().includes(keywords.toLowerCase()) ||
-            !recipe.ingredients.every(item => item.ingredient.toLowerCase().indexOf(keywords.toLowerCase()) === -1)
+            !recipe.ingredients.every(item => item.ingredient.toLowerCase().indexOf(keywords.toLowerCase()) === -1)||
+            recipe.appliance.toLowerCase().includes(keywords.toLowerCase())
         );
     })
     
@@ -37,7 +40,7 @@ const searchFunction = (data, keywords) => {
 
 // Card creation
 
-const displayFunction = (data) => {
+export const displayFunction = (data) => {
     const card = data.map((recipe)=>{
 
         const ingredientList = recipe.ingredients.map(item => {
@@ -95,3 +98,5 @@ categorieExtractor()
 
 console.log(ingredientContainer)
 filterList(ingredientContainer, tags.ingredients)
+filterList(applianceContainer, tags.appliance)
+filterList(ustensilsContainer, tags.ustensils)

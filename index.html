@@ -24,12 +24,23 @@
             <input type="text" name="search" id="search" class="form-control " search-input>
         </div>
         <div class="filters">
-            <button class="col-1 btn btn-primary " role="button" aria-haspopup="ingredients-container" aria-expanded="false" id="filter-ingredients">Ingredients</button>
-            <button class="col-1 btn btn-success " [filter-appliances]>Appareils</button>
-            <button class="col-1 btn btn-danger " [filter-ustensils]>Ustensiles</button>
-            <div class="tagContainer bg-primary" id="ingredients-container" style="display: none;">
+            <button class="col-1 btn btn-primary" role="button" aria-expanded="false" type="button" id="filter-ingredients"><p id="fi-text">Ingredients</p>
+                <input type="text" name="tags-search" id="tags-search" class="bg-primary"> 
+            </button>
+            <button class="col-1 btn btn-success  " id="filter-appliances">Appareils</button>
+            <button class="col-1 btn btn-danger " id="filter-ustensils">Ustensiles</button>
+            <ul class="tagContainer bg-primary" id="ingredients-container" style="display: none;">
+
+            </ul>
+            <div class="tagContainer bg-success" id="appliances-container" style="display: none;">
 
             </div>
+            <div class="tagContainer bg-danger" id="ustensils-container" style="display: none;">
+
+            </div>
+        </div>
+        <div class="pinsContainer" id="pinsContainer">
+
         </div>
         <div class="result-grid " recipes-container>
             <template recipe-template class="">
