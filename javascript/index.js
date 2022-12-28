@@ -1,6 +1,7 @@
 import {categorieExtractor, tags} from "../data/categories.js"
-import { recipes } from "../data/recipe.js"
-import filterList from "./component/filters.js"
+import { recipes, Shared } from "../data/recipe.js"
+
+
 
 let results = []
 results = recipes
@@ -22,19 +23,24 @@ const ustensilsContainer = document.getElementById("ustensils-container")
 
 
 // Getting and filtering data
-export const searchFunction = (data, keywords) => {
-    if(!keywords){
-        return data
-    }
-    const filter = data.filter((recipe) => {
-        return (
-            recipe.name.toLowerCase().includes(keywords.toLowerCase()) ||
-            !recipe.ingredients.every(item => item.ingredient.toLowerCase().indexOf(keywords.toLowerCase()) === -1)||
-            recipe.appliance.toLowerCase().includes(keywords.toLowerCase())
-        );
-    })
+export const searchFunction = (data, keywords, pins) => {
+
+    const words = (keywords.toLowerCase() + (pins?.length > 0 ? (" " + pins.join(' ').toLowerCase()) : "")).split(' ');
+    console.log(keywords, words);
+    return data.filter((recipe) => {
+        return words.every((searchWord) => {
+            return !(
+                recipe.name.toLowerCase().indexOf(searchWord) === -1 &&
+                recipe.description.toLowerCase().indexOf(searchWord) === -1 &&
+                recipe.ingredients.every(
+                    (ingredient) => ingredient.ingredient.toLowerCase().indexOf(searchWord) === -1,
+                ) &&
+                recipe.ustensils.every((ustensil) => ustensil.toLowerCase().indexOf(searchWord) === -1) &&
+                recipe.appliance.toLowerCase().indexOf(searchWord) === -1 
+            );
+        });
+    });
     
-    return filter 
 }
 
 
@@ -79,14 +85,19 @@ export const displayFunction = (data) => {
     recipesContainer.innerHTML = card;
 }
 
+document.addEventListener("search", (e) => {
+    results = searchFunction(recipes, Shared.search, Shared.pinsArray.map(element => element.tag))
+    displayFunction(results)
+})
+
 
 searchInput.addEventListener("input", async (e) => {
     const args = e.target.value
     if(args.length === 0) {
         displayFunction(recipes)
-    } else if(args.length >= 3) {
-        results = searchFunction(recipes, args)
-        displayFunction(results)
+    } else if (args.length >= 3) {
+        Shared.search = args
+        document.dispatchEvent(new CustomEvent('search', { }));
     }
     if(results.length === 0 && args.length >= 3){
         recipesContainer.innerHTML = 'aucun article ne corresspond a votre recherche'
@@ -95,8 +106,3 @@ searchInput.addEventListener("input", async (e) => {
 displayFunction(results)
 
 categorieExtractor()
-
-console.log(ingredientContainer)
-filterList(ingredientContainer, tags.ingredients)
-filterList(applianceContainer, tags.appliance)
-filterList(ustensilsContainer, tags.ustensils)

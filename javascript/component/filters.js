@@ -1,90 +1,105 @@
 import { displayFunction, searchFunction } from "../index.js";
-import { recipes } from "../../data/recipe.js";
+import { recipes, Shared } from "../../data/recipe.js";
 import { tags } from "../../data/categories.js";
 
 const pin = document.createElement("div")
 const pinContainer = document.getElementById("pinsContainer")
+const filtersContainer = document.getElementById("filters_container")
 
 
-const filterList = (container, tags) => {
-    const ingredientsBtn = document.getElementById("filter-ingredients")
-    const appliancesBtn = document.getElementById("filter-appliances")
-    const ustensilsBtn = document.getElementById("filter-ustensils")
-    
-    const tagMap =tags.map((element) => {
-        return `<li class="tags">${element}</li>`
-    }).join('');
-    container.innerHTML = tagMap
-    Array.from(container.childNodes).forEach((element, i) => {
-        element.addEventListener("click" , ()=>{
-            const tagFilter = searchFunction(recipes, element.innerHTML)
-            console.log(tagFilter)
-            displayFunction(tagFilter)
-            if (container.style.display == "none") {
-                container.style.display = "grid"
-                tagsSearch1.style.display = "block"
-                tagsText1.style.display= "none"
-                tagsSearch1.focus()
-                
-            } else {
-                container.style.display = "none"
-                tagsSearch1.style.display = "none"
-                tagsText1.style.display= "block"
-                pin.innerHTML = element.innerHTML
-                pin.setAttribute("class", "pin")
-                pinContainer.append(pin)
+const displayPins = () => {
+    const frag = document.createDocumentFragment()
+    Shared.pinsArray.forEach((element , y) => {
+        console.log(element)
+        const emLi = document.createElement("li");
+        emLi.classList.add("pins")
+        emLi.classList.add(`pin${Shared.pinsArray[y].category}`)
+        emLi.innerHTML = element.tag
+        emLi.addEventListener("click", () => {
+            const i = Shared.pinsArray.indexOf(element);
+            console.log(i)
+            if (i != -1) {
+                console.log(Shared.pinsArray[y].tag)
+                if (Shared.pinsArray[y].tag == element.tag) { 
+                    Shared.pinsArray.splice(i, 1)
+                    console.log("remove")
+                    document.dispatchEvent(new CustomEvent('show_em_li', { detail: element.tag }));
+                    document.dispatchEvent(new CustomEvent('search', { }));
+                    emLi.remove();
+                }
             }
-        }) 
+            
+        })
+        frag.appendChild(emLi)
     });
-    
-    switch (container.id) {
-        case "ingredients-container":
-            btnToogle(ingredientsBtn, container)
-            break;
-        case "appliances-container":
-            btnToogle(appliancesBtn, container)
-            break;
-        case "ustensils-container":
-            btnToogle(ustensilsBtn, container)
-            break;
-        default:
-            break;
-    }
-
+    pinContainer.replaceChildren(frag)
 }
 
-const tagsSearch1 = document.getElementById("tags-search")
-const tagsText1 = document.getElementById("fi-text")
-const btnToogle = (button, Container) => {
+const displayTags = (category ,tagsArray) => {
+    const frag = document.createDocumentFragment();
+    tagsArray.forEach((tag) => {
+        const emLi = document.createElement("li")
+        emLi.className = "tags"
+        emLi.innerHTML = tag
+        const pinObject = {"category": category, "tag": tag}
+        emLi.addEventListener("click", () => {
+            if (!Shared.pinsArray.includes(pinObject)) {
+                Shared.pinsArray.push(pinObject)
+                emLi.style.display = "none"
+                document.dispatchEvent(new CustomEvent('search', { }));
+                displayPins();
+            }
+        })
+        document.addEventListener("show_em_li", (e) => {
+            console.log(e.detail)
+            if (e.detail == tag) {
+                emLi.style.display = "inline"
+            }
+        })
+        frag.appendChild(emLi);
+    });
+    return frag;
+}
+
+const displayFilter = (filterName, tagsArray)=>{
+    console.log(filterName, tagsArray, 'hey')
+    const container = document.createElement("div");
+    const button = document.createElement("button");
+    const searchInput = document.createElement("input"); 
+    const listContainer = document.createElement("ul");
     
-    button.addEventListener("click", () => {
-        if (Container.style.display == "none") {
-            Container.style.display = "grid"
-            tagsSearch1.style.display = "block"
-            tagsText1.style.display= "none"
-            button.setAttribute("class", "btn btn-primary filter-opened")
-            tagsSearch1.focus()
+    searchInput.placeholder = filterName;
+    listContainer.classList.add("listContainer")
+    button.addEventListener("click", (e) => {
+        listContainer.className.includes("listShow") ? listContainer.classList.remove("listShow") : listContainer.classList.add("listShow")
+        button.className.includes("btn-expanded") ? button.classList.remove("btn-expanded") : button.classList.add("btn-expanded")
+    })
+    
+    searchInput.addEventListener("keydown", (e) => {
+        if (e.currentTarget.value.length >= 3) {
+            listContainer.replaceChildren(displayTags(filterName, tagsArray.includes(e.currentTarget.value.toLowerCase())))
             
         } else {
-            Container.style.display = "none"
-            tagsSearch1.style.display = "none"
-            tagsText1.style.display= "block"
-            button.setAttribute("class", "btn btn-primary")
+            listContainer.replaceChildren(displayTags(filterName, tagsArray))
         }
     })
+    
+    listContainer.replaceChildren(displayTags(filterName, tagsArray))
+    button.appendChild(searchInput)
+    container.appendChild(button)
+    container.appendChild(listContainer)
+    return container;
 }
 
+const Trad = {
+    ingredients: "Ingredients",
+    appliance: "Appareils",
+    ustensils: "Ustensiles",
+}
 
-
-tagsSearch1.addEventListener("input", (e)=>{
-    e.preventDefault()
-    tagsSearch(e.target.value)
+const fg = document.createDocumentFragment()
+Object.entries(tags).forEach(([k, v]) => {
+    fg.appendChild(displayFilter(Trad[k],v))
+    console.log(k,v,Trad[k])
 })
-const tagsSearch = (args)=>{
-    const ingredientContainer = document.getElementById("ingredients-container")
-    const res = tags.ingredients.filter(tag => tag.toLowerCase().includes(args))
-    console.log(res)
-    filterList(ingredientContainer, res)
-}
-
-export default filterList
+filtersContainer.replaceChildren(fg);

@@ -1724,3 +1724,8 @@ export const recipes = [
         "ustensils":["rouleau à patisserie","fouet"]
     }
 ]
+
+export const Shared = {
+    pinsArray: [],
+    search: ""
+}
