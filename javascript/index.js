@@ -10,8 +10,8 @@ results = recipes
 //DOM Elements
 
 const recipeCardTemplate = document.querySelector("[recipe-template]")
-const recipesContainer = document.querySelector("[recipes-container]")
-const searchInput = document.querySelector("[search-input]")
+const recipesContainer = document.querySelector("#recipes-container")
+const searchInput = document.getElementById("search")
 const ingredientContainer = document.getElementById("ingredients-container")
 const applianceContainer = document.getElementById("appliances-container")
 const ustensilsContainer = document.getElementById("ustensils-container")

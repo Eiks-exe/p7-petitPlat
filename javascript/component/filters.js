@@ -14,7 +14,7 @@ const displayPins = () => {
         const emLi = document.createElement("li");
         emLi.classList.add("pins")
         emLi.classList.add(`pin${Shared.pinsArray[y].category}`)
-        emLi.innerHTML = element.tag
+        emLi.innerHTML = element.tag + " <i class='fa-light fa-circle-xmark fa-regular'></i>"
         emLi.addEventListener("click", () => {
             const i = Shared.pinsArray.indexOf(element);
             console.log(i)
@@ -77,7 +77,7 @@ const displayFilter = (filterName, tagsArray)=>{
     
     searchInput.addEventListener("keydown", (e) => {
         if (e.currentTarget.value.length >= 3) {
-            listContainer.replaceChildren(displayTags(filterName, tagsArray.includes(e.currentTarget.value.toLowerCase())))
+            listContainer.replaceChildren(displayTags(filterName, tagsArray.filter(element=> element.includes(e.target.value.toLowerCase()))))
             
         } else {
             listContainer.replaceChildren(displayTags(filterName, tagsArray))

@@ -83,6 +83,9 @@
     border: none;
     outline: none;
 }
+.filters > div > button > input{
+    color: white;
+}
 
 .filters > div > button > input::placeholder{
     color: white;
@@ -102,7 +105,7 @@
     height: 397px;
     grid-template-columns: repeat(3, 1fr);
     border-radius: 0 0px 15px 15px;
-    grid-gap: 15px;
+    grid-gap: 5px;
     overflow-y: hidden;
 }
 .filter-opened {
@@ -117,7 +120,7 @@
 }
 
 .tags:hover{
-    background-color: rgb(112, 36, 36);
+    filter:brightness(20%);
 }
 #tags-search{
     display: none;
@@ -156,6 +159,7 @@
 
 #filters_container > div > ul >li {
     color: white;
+    height: 70px;
 }
 #filters_container > div:nth-child(1) > ul {
     background: #3282F7;
