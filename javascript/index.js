@@ -20,8 +20,6 @@ const ustensilsContainer = document.getElementById("ustensils-container")
 // filters
 
 
-
-
 // Getting and filtering data
 export const searchFunction = (data, keywords, pins) => {
 
