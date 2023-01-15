@@ -49,21 +49,21 @@ export const displayFunction = (data) => {
 
         const ingredientList = recipe.ingredients.map(item => {
             if(!item.quantity){
-                return `<li>${item.ingredient}</li>`
+                return `<li><b>${item.ingredient}</b></li>`
             } else if(!item.unit) {
-                return `<li>${item.ingredient}: ${item.quantity}</li>`
+                return `<li><b>${item.ingredient}</b>: ${item.quantity}</li>`
             }
-            return `<li>${item.ingredient}: ${item.quantity}${item.unit}</li>`
+            return `<li><b>${item.ingredient}</b>: ${item.quantity}${item.unit}</li>`
         });
 
         return `
-        <div class="recipe-card bg-secondary p-0" style="width: 28rem;">
+        <div class="recipe-card p-0" style="width: 28rem;">
         <img src="./assets/pictures/restaurant-wallpapers-44763-15495-1531137.png"
-            class="card-img-top h-50" alt="..." data-card-img>
+            class="card-img-top" alt="..." data-card-img>
         <div class="card-body" data-card-body>
             <div class="card-title " data-card-title>
                 <h5 class="recipe-name ">${recipe.name}</h5>
-                <p class="recipe-timestamp ">${recipe.time}</p>
+                <p class="recipe-timestamp "><i class="fa-regular fa-clock"></i> ${recipe.time} min</p>
             </div>
             <div class="card-text row" data-card-text>
                 <ul class="recipe-ingredients col-6">
