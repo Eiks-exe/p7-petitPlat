@@ -53,6 +53,9 @@ export const displayFunction = (data) => {
             } else if(!item.unit) {
                 return `<li><b>${item.ingredient}</b>: ${item.quantity}</li>`
             }
+            if (item.unit == "grammes") {
+                return `<li><b>${item.ingredient}</b>: ${item.quantity}g</li>`
+            }
             return `<li><b>${item.ingredient}</b>: ${item.quantity}${item.unit}</li>`
         });
 

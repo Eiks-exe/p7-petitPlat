@@ -33,7 +33,6 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 6;
-            line-clamp: 6; 
     -webkit-box-orient: vertical;
     height: 110px;
     padding: 0;
@@ -41,7 +40,6 @@
 }
 .recipe-ingredients {
     font-size: 12px;
-    font-weight: 00;
 }
 .card-body{
     padding: 5px 20px !important;
@@ -99,6 +97,7 @@
 .filters > div > button > input::placeholder{
     color: white;
     margin-right: 20px;
+    font-size: 18px !important;
 }
 
 .filters > div:nth-child(1) > button{
@@ -227,11 +226,10 @@
 
 .search-icon{
     position: absolute;
-    top: 20%;
+    top: 19%;
     right: 14%;
-    font-size: x-large;
+    font-size: 32.06px;
 }
-
 .recipe-timestamp{
     font-weight: 700;
 }
