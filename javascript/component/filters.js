@@ -67,12 +67,17 @@ const displayFilter = (filterName, tagsArray)=>{
     const button = document.createElement("button");
     const searchInput = document.createElement("input"); 
     const listContainer = document.createElement("ul");
-    
+    const chevron = document.createElement("i")
+    chevron.classList.add("fa-solid", "fa-chevron-down", "filter-icon")
+    console.log(chevron.className)
     searchInput.placeholder = filterName;
+
+    button.classList.add("filter-button")
     listContainer.classList.add("listContainer")
     button.addEventListener("click", (e) => {
         listContainer.className.includes("listShow") ? listContainer.classList.remove("listShow") : listContainer.classList.add("listShow")
         button.className.includes("btn-expanded") ? button.classList.remove("btn-expanded") : button.classList.add("btn-expanded")
+        chevron.className.includes("r180") ? chevron.classList.remove("r180") : chevron.classList.add("r180")
     })
     
     searchInput.addEventListener("keydown", (e) => {
@@ -86,6 +91,7 @@ const displayFilter = (filterName, tagsArray)=>{
     
     listContainer.replaceChildren(displayTags(filterName, tagsArray))
     button.appendChild(searchInput)
+    button.appendChild(chevron)
     container.appendChild(button)
     container.appendChild(listContainer)
     return container;

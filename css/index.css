@@ -13,29 +13,38 @@
     row-gap: 20px;
 }
 .recipe-card {
-    height: 317px;
+    width: 380px;
+    height: 364px;
     overflow: hidden;
     border-radius: 5px;
+    background: #E7E7E7 !important;
+
 }
 
 .recipe-name{
     font-size: 18px;
     white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 300px;
 }
 .recipe-description{
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 6;
-            line-clamp: 6; 
     -webkit-box-orient: vertical;
+    height: 110px;
+    padding: 0;
+    font-size: 12px;
 }
 .recipe-ingredients {
     font-size: 12px;
-    font-weight: 00;
 }
 .card-body{
-    padding: 5px 10px;
+    padding: 5px 20px !important;
+    background: #E7E7E7 !important;
+    
 }
 
 .card-title{
@@ -61,22 +70,20 @@
 }
 
 .filters > div > button {
-    width: 8rem;
-    height: 3rem;
-    border-radius: 15px 15px 15px;
+    width: 170px;
+    height: 69px;
+    border-radius: 10px 10px 10px;
     border: none;
 }
 
 
-.filters > div:nth-child(1) > button{
-    background: #3282F7;    
-}
 
 .filters > div > button > input {
     background-color: inherit;
     border: none;
     text-align: center;
     width: 120px;
+    align-self: center;
 }
 
 .filters > div > button > input:focus {
@@ -89,13 +96,22 @@
 
 .filters > div > button > input::placeholder{
     color: white;
+    margin-right: 20px;
+    font-size: 18px !important;
 }
+
+.filters > div:nth-child(1) > button{
+    background: #3282F7;    
+}
+
 .filters > div:nth-child(2) > button {
-    background: #32f763;    
+    background: #68D9A4;
+  
 }
 
 .filters > div:nth-child(3) > button {
-    background: #f73232;    
+    background: #ED6454;
+
 }
 
 .tagContainer {
@@ -134,14 +150,15 @@
    justify-content: center;
    align-items: center;
    align-self: flex-start;
-   margin: 2rem 15rem;
+   margin: 10px 15rem;
    margin-bottom: 200px;
    list-style: none; 
    height: 50px;
 }
 
 .pins {
-    border-radius: 25px 25px 25px 25px;
+    height: 37px ;
+    border-radius: 10px 10px 10px 10px;
     background-color: cornflowerblue;
     padding:5px 10px;
 }
@@ -159,18 +176,19 @@
 
 #filters_container > div > ul >li {
     color: white;
-    height: 70px;
+    height: 22px;
 }
 #filters_container > div:nth-child(1) > ul {
     background: #3282F7;
 }
 
 #filters_container > div:nth-child(2) > ul {
-    background:#32f763;
+    background: #68D9A4;
 }
 
 #filters_container > div:nth-child(3) > ul {
-    background: #f73232;
+    background: #ED6454;
+
 }
 
 .listShow {
@@ -189,14 +207,49 @@
 }
 
 .pinAppareils{
-    background-color: #32f763;
+    background: #68D9A4;
 }
 
 .pinUstensiles{
-    background-color: #f73232;
+    background: #ED6454;
 }
 
 .btn-expanded{
     border-radius: 15px 15px 0 0 !important;
     width:100% !important;
 }
+
+.search {
+    height: 69px;
+    background: #E7E7E7 !important;
+}
+
+.search-icon{
+    position: absolute;
+    top: 19%;
+    right: 14%;
+    font-size: 32.06px;
+}
+.recipe-timestamp{
+    font-weight: 700;
+}
+
+.recipe-ingredients{
+    list-style: none;
+    
+}
+
+.card-img-top {
+    object-fit: cover;
+    height: 178px;
+}
+
+.filter-icon {
+    color: white;
+   
+}
+
+.r180{
+    transform: rotate(180deg);
+}
+
