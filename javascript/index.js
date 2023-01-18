@@ -21,25 +21,46 @@ const ustensilsContainer = document.getElementById("ustensils-container")
 
 
 // Getting and filtering data
-export const searchFunction = (data, keywords, pins) => {
 
+
+
+const altEvery = (data, predicate) => {
+    for (let i = 0; i < data.length; i++) {
+       if(!predicate(data[i])) return false; 
+    }
+    return true
+}
+
+export const altSearchFunc = (data,keywords,pins) => {
+    console.log("search")
     const words = (keywords.toLowerCase() + (pins?.length > 0 ? (" " + pins.join(' ').toLowerCase()) : "")).split(' ');
     console.log(keywords, words);
-    return data.filter((recipe) => {
-        return words.every((searchWord) => {
+    const result = new Array(data.length);
+    let j=0 
+    for (let i = 0; i < data.length; i++) {
+        const isValid = altEvery(words, (searchWord)=>{
             return !(
-                recipe.name.toLowerCase().indexOf(searchWord) === -1 &&
-                recipe.description.toLowerCase().indexOf(searchWord) === -1 &&
-                recipe.ingredients.every(
+                data[i].name.toLowerCase().indexOf(searchWord) === -1 &&
+                data[i].description.toLowerCase().indexOf(searchWord) === -1 &&
+                altEvery(
+                    data[i].ingredients,
                     (ingredient) => ingredient.ingredient.toLowerCase().indexOf(searchWord) === -1,
                 ) &&
-                recipe.ustensils.every((ustensil) => ustensil.toLowerCase().indexOf(searchWord) === -1) &&
-                recipe.appliance.toLowerCase().indexOf(searchWord) === -1 
-            );
-        });
-    });
-    
+                altEvery(data[i].ustensils,
+                    (ustensil) => ustensil.toLowerCase().indexOf(searchWord) === -1,
+                ) &&
+                data[i].appliance.toLowerCase().indexOf(searchWord) === -1
+            )
+        })
+        if(isValid){
+            result[j] = data[i];
+            j++
+        }
+
+    }
+    return result.slice(0, j)
 }
+
 
 
 // Card creation
