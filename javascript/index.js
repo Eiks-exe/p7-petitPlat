@@ -87,7 +87,7 @@ export const displayFunction = (data) => {
 }
 
 document.addEventListener("search", (e) => {
-    results = searchFunction(recipes, Shared.search, Shared.pinsArray.map(element => element.tag))
+    results = altSearchFunc(recipes, Shared.search, Shared.pinsArray.map(element => element.tag))
     displayFunction(results)
 })
 
