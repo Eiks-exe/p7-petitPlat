@@ -1,4 +1,3 @@
-import { displayFunction, searchFunction } from "../index.js";
 import { recipes, Shared } from "../../data/recipe.js";
 import { tags } from "../../data/categories.js";
 
