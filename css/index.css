@@ -184,6 +184,7 @@
 
 #filters_container > div:nth-child(2) > ul {
     background: #68D9A4;
+    grid-auto-rows: minmax(30px, 40px);
 }
 
 #filters_container > div:nth-child(3) > ul {
