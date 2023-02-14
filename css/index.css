@@ -81,9 +81,10 @@
 .filters > div > button > input {
     background-color: inherit;
     border: none;
-    text-align: center;
-    width: 120px;
+    text-align: left;
+    width: 90%;
     align-self: center;
+
 }
 
 .filters > div > button > input:focus {
@@ -97,8 +98,12 @@
 .filters > div > button > input::placeholder{
     color: white;
     margin-right: 20px;
+    padding-left: ;
     font-size: 18px !important;
+    text-align: left;
 }
+
+
 
 .filters > div:nth-child(1) > button{
     background: #3282F7;    
@@ -184,10 +189,13 @@
 
 #filters_container > div:nth-child(2) > ul {
     background: #68D9A4;
+    grid-auto-rows: minmax(30px, 40px);
+    padding-left: 5%;
 }
 
 #filters_container > div:nth-child(3) > ul {
     background: #ED6454;
+    padding-left: 5%;
 
 }
 
